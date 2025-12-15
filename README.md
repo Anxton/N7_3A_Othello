@@ -4,7 +4,7 @@
 
 ```bash
 # Create a venv
-python -m venv .
+python -m venv venv
 
 # Activate it
 source venv/bin/activate
