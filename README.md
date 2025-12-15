@@ -10,7 +10,7 @@ python -m venv venv
 source venv/bin/activate
 
 # Install requirements
-pip install -r ./requirements.txt`
+pip install -r ./requirements.txt
 
 # Running the game
 python src/main.py
