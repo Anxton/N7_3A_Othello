@@ -1,7 +1,17 @@
 # N7_3A_Othello
 
-# Installing depedencies
+# Installing and running
 
-1. `python -m venv .`
-2. `source venv/bin/activate`
-3. `python src/main.py`
+```bash
+# Create a venv
+python -m venv .
+
+# Activate it
+source venv/bin/activate
+
+# Install requirements
+pip install -r ./requirements.txt`
+
+# Running the game
+python src/main.py
+```
