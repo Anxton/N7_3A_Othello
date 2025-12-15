@@ -13,6 +13,21 @@ Règles :
 
 Le vainqueur est le joueur ayant le plus de ses pions sur le plateau.
 
-# Admin Doc
+# Notre jeu (inteface, fonctionnalités, idées pour aller plus loin)
 
 XXX
+
+# Admin Doc
+
+## Architecture
+
+XXX
+
+# Etat à la fin du projet
+
+XXX
+
+## Tests unitaires
+
+XXX
+
