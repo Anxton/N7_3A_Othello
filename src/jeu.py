@@ -70,10 +70,10 @@ class Jeu:
         peut_jouer = False #si le joueur peut jouer on changera en True
 
         # Vérification des coups possibles
-        for c in range(self.colonnes):
-            for l in range(self.lignes):
+        for l in range(self.colonnes):
+            for c in range(self.lignes):
                 #Supprime les anciens coups possibles
-                if self.plateau[l][c] == "possible" : self.plateau[c][l] = None
+                if self.plateau[l][c] == "possible" : self.plateau[l][c] = None
                 #Vérifie le tour, les coups possibles, met les nouveaux coups possibles dans plateau
                 if self.coup_valide(l,c) :
                     self.plateau[l][c] = "possible"
@@ -89,21 +89,20 @@ class Jeu:
         else : #Si oui récupérer coup joueur
             if self.tour == "blancs" : self.b_peutjouer = True
             else self.n_peutjouer = True
-            new_l, new_c = interface.get_coup() #METTRE NOM METHODE FRONT Recuperer coup
+            new_l, new_c = self.interface.get_coup() #METTRE NOM METHODE FRONT Recuperer coup
             self.plateau[new_l][new_c] = self.tour #ajouter coup
             #QUI s'occupe de refuser le coup si la case choisie n'est pas un coup possible ?
      
         # fin du tour
-        if self.b_peutjouer == True or self.n_peutjouer == True
-            if self.tour == "blancs" : self.tour = "noirs"
-            else self.tour = "blancs"
+        if self.tour == "blancs" : self.tour = "noirs"
+        else self.tour = "blancs"
 
     def fin_partie(self):
         nb_blancs = 0
         nb_noirs = 0
 
-        for c in range(self.colonnes):
-             for l in range(self.lignes):
+        for l in range(self.colonnes):
+            for c in range(self.lignes):
                 if self.plateau[l][c] == "blancs" : nb_blancs += 1
                 elif self.plateau[l][c] == "noirs" : nb_noirs += 1
 
