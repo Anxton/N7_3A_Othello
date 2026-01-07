@@ -108,6 +108,3 @@ class Jeu:
                 elif self.plateau[l][c] == "noirs" : nb_noirs += 1
 
         self.interface.set_resultat(nb_blancs, nb_noirs)
-
-
-
