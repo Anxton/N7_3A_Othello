@@ -3,9 +3,16 @@ class Jeu:
     Classe qui gère le déroulement d'un jeu du début à la fin
     """
 
-    #blancs, noirs, lignes, colonnes, tour, fi
-    # Initialisation de la classe
-    #def __init__(self, blancs : Joueur, noirs : Joueur, lignes : int, colonnes : int):
+    """
+    --- Méthode pour envoyer messages au front ---
+    """
+    def afficher_message(self, texte: str, type_msg: str = "info"):
+        #type_msg peut être : "info", "erreur", "alerte"
+        print(f"[{type_msg.upper()}] {texte}")
+
+    """
+    --- Initialisation du jeu ---
+    """
     def __init__(self, blancs : str, noirs : str, lignes : int, colonnes : int):
         self.blancs = blancs
         self.noirs = noirs
@@ -13,6 +20,9 @@ class Jeu:
         self.colonnes = colonnes
         self.lancer_jeu()
 
+    """
+    --- Lancement de partie ---
+    """
     def lancer_jeu(self):
         #Création plateau
         self.plateau = [[None for _ in range(self.colonnes)] 
@@ -36,6 +46,9 @@ class Jeu:
             self.jouer_tour() #itératif jusqu'à ce qu'aucun joueur ne puisse jouer
         self.fin_partie()
 
+    """
+    --- Vérification si un coup est valide ---
+    """
     def coup_valide(self, ligne, colonne):
         if self.plateau[ligne][colonne] is not None: #case doit etre vide
             return False
@@ -65,7 +78,10 @@ class Jeu:
                 c += dir_c #-> on continue dans la direction tant qu'on a trouve un opposant
 
         return False #si aucun coup possible n'a été trouvé
-            
+
+    """
+    --- Déroulement complet d'un tour de jeu ---
+    """
     def jouer_tour(self):
         peut_jouer = False #si le joueur peut jouer on changera en True
 
@@ -97,6 +113,7 @@ class Jeu:
             while not coup_valide:
                 new_l, new_c = self.interface.get_coup() #METTRE NOM METHODE FRONT Recuperer coup
                 if self.plateau[new_l][new_c] == "possible": coup_valide = True
+                else : self.interface.afficher_message("Case invalide !", "erreur")
             self.retourner_pions(new_l,new_c)
             
      
@@ -104,6 +121,9 @@ class Jeu:
         if self.tour == "blancs" : self.tour = "noirs"
         else self.tour = "blancs"
 
+    """
+    --- Retournement des pions adverses une fois que le joueur a joué ---
+    """
     def retourner_pions(self, ligne, colonne):
         self.plateau[ligne][colonne] = self.tour #ajouter coup
 
@@ -133,7 +153,10 @@ class Jeu:
                 c += dir_c #-> on continue dans la direction tant qu'on a trouve un opposant
 
         self.interface.set_plateau(self.plateau, self.tour) #update avec le nouveau coup
-    
+
+    """
+    --- Fin de partie ---
+    """
     def fin_partie(self):
         nb_blancs = 0
         nb_noirs = 0
@@ -144,3 +167,4 @@ class Jeu:
                 elif self.plateau[l][c] == "noirs" : nb_noirs += 1
 
         self.interface.set_resultat(nb_blancs, nb_noirs)
+
