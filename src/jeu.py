@@ -69,11 +69,14 @@ class Jeu:
     def jouer_tour(self):
         peut_jouer = False #si le joueur peut jouer on changera en True
 
+        #Supprime les anciens coups possibles
+        for l in range(self.colonnes):
+            for c in range(self.lignes):
+                if self.plateau[l][c] == "possible" : self.plateau[l][c] = None
+
         # Vérification des coups possibles
         for l in range(self.colonnes):
             for c in range(self.lignes):
-                #Supprime les anciens coups possibles
-                if self.plateau[l][c] == "possible" : self.plateau[l][c] = None
                 #Vérifie le tour, les coups possibles, met les nouveaux coups possibles dans plateau
                 if self.coup_valide(l,c) :
                     self.plateau[l][c] = "possible"
@@ -92,6 +95,7 @@ class Jeu:
             new_l, new_c = self.interface.get_coup() #METTRE NOM METHODE FRONT Recuperer coup
             self.plateau[new_l][new_c] = self.tour #ajouter coup
             #QUI s'occupe de refuser le coup si la case choisie n'est pas un coup possible ?
+            self.interface.set_plateau(self.plateau, self.tour) #update avec le nouveau coup
      
         # fin du tour
         if self.tour == "blancs" : self.tour = "noirs"
