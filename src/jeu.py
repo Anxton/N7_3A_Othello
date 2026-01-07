@@ -102,12 +102,16 @@ class Jeu:
 
         #Vérifie si le joueur peut jouer, sinon X_peutjouer = False
         if peut_jouer is not True : 
-            if self.tour == "blancs" : self.b_peutjouer = False
-            else self.n_peutjouer = False
+            if self.tour == "blancs" :
+                self.b_peutjouer = False
+            else :
+                self.n_peutjouer = False
             #si peut pas jouer on affiche qu'il ne peut pas jouer avant changement de tour ?
         else : #Si oui récupérer coup joueur
-            if self.tour == "blancs" : self.b_peutjouer = True
-            else self.n_peutjouer = True
+            if self.tour == "blancs" :
+                self.b_peutjouer = True
+            else:
+                self.n_peutjouer = True
             
             coup_valide = False
             while not coup_valide:
@@ -118,8 +122,10 @@ class Jeu:
             
      
         # fin du tour
-        if self.tour == "blancs" : self.tour = "noirs"
-        else self.tour = "blancs"
+        if self.tour == "blancs" :
+            self.tour = "noirs"
+        else :
+            self.tour = "blancs"
 
     """
     --- Retournement des pions adverses une fois que le joueur a joué ---
