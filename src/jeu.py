@@ -100,14 +100,16 @@ class Jeu:
         
         #Si aucun joueur ne peut jouer (= partie terminée), on sort de la fonction
 
-        
-         
-      
-
-        
-
     def fin_partie(self):
+        nb_blancs = 0
+        nb_noirs = 0
 
+        for c in range(self.colonnes)
+             for l in range(self.lignes)
+                if self.plateau[l][c] == "blancs" : nb_blancs += 1
+                elif self.plateau[l][c] == "noirs" : nb_blancs += 1
+
+        interface.set_resultat(nb_blancs, nb_noirs)
 
 
 
