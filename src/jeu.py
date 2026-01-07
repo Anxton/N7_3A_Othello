@@ -1,3 +1,9 @@
+'''
+INFOS POUR RELIER : 
+Début du jeu, renvoie : plateau[l][c] avec l et c qui peuvent être modifiés à volonté
+
+'''
+
 class Jeu:
     """
     Classe qui gère le déroulement d'un jeu du début à la fin
@@ -6,9 +12,9 @@ class Jeu:
     """
     --- Méthode pour envoyer messages au front ---
     """
-    def afficher_message(self, texte: str, type_msg: str = "info"):
+    #def afficher_message(self, texte: str, type_msg: str = "info"):
         #type_msg peut être : "info", "erreur", "alerte"
-        self.interface.afficher_message(texte, type_msg) #faire cette méthode dans front
+     #   self.interface.afficher_message(texte, type_msg) #faire cette méthode dans front
 
     """
     --- Initialisation du jeu ---
@@ -22,8 +28,12 @@ class Jeu:
 
     """
     --- Lancement de partie ---
+        RETOURNE : plateau en début de partie avec les coups possibles pour le joueur blanc qui débute
     """
-    def lancer_jeu(self):
+    def lancer_jeu(self, lignes, colonnes):
+        self.lignes = lignes
+        self.colonnes = colonnes
+        
         #Création plateau
         self.plateau = [[None for _ in range(self.colonnes)] 
                         for _ in range(self.lignes)]
@@ -36,15 +46,24 @@ class Jeu:
         self.plateau[mid_l][mid_c-1] = "noirs"
         self.plateau[mid_l-1][mid_c] = "noirs"
       
-        self.tour = "blancs"
-        self.interface = OthelloInterface() #front
-        self.interface.initialiser_jeu(self.lignes,self.colonnes, self.plateau)
+        self.tour = "blancs"      
+        
         #interface.set_plateau(self.plateau, self.tour) #METTRE NOM METHODE FRONT
         self.b_peutjouer = True #Indique si les blancs peuvent jouer
         self.n_peutjouer = True #Indique si les noires peuvent jouer
-        while self.b_peutjouer or self.n_peutjouer :
-            self.jouer_tour() #itératif jusqu'à ce qu'aucun joueur ne puisse jouer
-        self.fin_partie()
+
+        # Ajout des coups possibles
+        for l in range(self.lignes):
+            for c in range(self.colonnes):
+                #Vérifie le tour, les coups possibles, met les nouveaux coups possibles dans plateau
+                if self.coup_valide(l,c) :
+                    self.plateau[l][c] = "possible"
+                    peut_jouer = True
+
+        return self.plateau #renvoie la position des pions en début de partie
+        #while self.b_peutjouer or self.n_peutjouer :
+        #    self.jouer_tour() #itératif jusqu'à ce qu'aucun joueur ne puisse jouer
+        #self.fin_partie()
 
     """
     --- Vérification si un coup est valide ---
@@ -81,8 +100,24 @@ class Jeu:
 
     """
     --- Déroulement complet d'un tour de jeu ---
+        RETOURNE : plateau après le coup joué avec les coups possibles pour le prochain joueur ou une erreur si le coup n'est pas valide
     """
-    def jouer_tour(self):
+    def jouer_tour(self, new_l, new_c):
+            #if not self.b_peutjouer and  self.n_peutjouer :
+        #    self.jouer_tour() #itératif jusqu'à ce qu'aucun joueur ne puisse jouer
+        
+            coup_valide = False
+            while not coup_valide:
+                #new_l, new_c = self.interface.get_coup() #METTRE NOM METHODE FRONT Recuperer coup
+                if self.plateau[new_l][new_c] == "possible": coup_valide = True
+                else : return "Case invalide !"
+     
+        # fin du tour -> Changement joueur pour le prochain tour
+        if self.tour == "blancs" :
+            self.tour = "noirs"
+        else :
+            self.tour = "blancs"
+
         peut_jouer = False #si le joueur peut jouer on changera en True
 
         #Supprime les anciens coups possibles
@@ -90,7 +125,7 @@ class Jeu:
             for c in range(self.colonnes):
                 if self.plateau[l][c] == "possible" : self.plateau[l][c] = None
 
-        # Vérification des coups possibles
+        # Changement des des coups possibles pour le suivant
         for l in range(self.lignes):
             for c in range(self.colonnes):
                 #Vérifie le tour, les coups possibles, met les nouveaux coups possibles dans plateau
@@ -98,34 +133,19 @@ class Jeu:
                     self.plateau[l][c] = "possible"
                     peut_jouer = True
 
-        self.interface.set_plateau(self.plateau, self.tour)
-
         #Vérifie si le joueur peut jouer, sinon X_peutjouer = False
         if peut_jouer is not True : 
             if self.tour == "blancs" :
                 self.b_peutjouer = False
             else :
                 self.n_peutjouer = False
-            #si peut pas jouer on affiche qu'il ne peut pas jouer avant changement de tour ?
         else : #Si oui récupérer coup joueur
             if self.tour == "blancs" :
                 self.b_peutjouer = True
             else:
                 self.n_peutjouer = True
-            
-            coup_valide = False
-            while not coup_valide:
-                new_l, new_c = self.interface.get_coup() #METTRE NOM METHODE FRONT Recuperer coup
-                if self.plateau[new_l][new_c] == "possible": coup_valide = True
-                else : self.afficher_message("Case invalide !", "erreur")
-            self.retourner_pions(new_l,new_c)
-            
-     
-        # fin du tour
-        if self.tour == "blancs" :
-            self.tour = "noirs"
-        else :
-            self.tour = "blancs"
+
+        return self.plateau
 
     """
     --- Retournement des pions adverses une fois que le joueur a joué ---
@@ -177,4 +197,15 @@ class Jeu:
         else : self.afficher_message(f"Partie terminée\nLes Noirs gagnent !\n{nb_blancs} Blancs        Noirs {nb_noirs}")
         
         #self.interface.set_resultat(nb_blancs, nb_noirs)
+
+    def get_plateau(self):
+        return self.plateau
+
+    def get_tour(self):
+        return self.tour
+
+    get 
+
+    
+        
 
