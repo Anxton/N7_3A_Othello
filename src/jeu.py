@@ -28,7 +28,8 @@ class Jeu:
       
         self.tour = "blancs"
         interface = OthelloInterface() #front
-        interface.initialiserJeu() #METTRE NOM METHODE FRONT
+        interface.initialiser_jeu(self.lignes,self.colonnes, self.plateau)
+        #interface.set_plateau(self.plateau, self.tour) #METTRE NOM METHODE FRONT
         self.b_peutjouer = True #Indique si les blancs peuvent jouer
         self.n_peutjouer = True #Indique si les noires peuvent jouer
         self.jouer_tour() #itératif jusqu'à ce qu'aucun joueur ne puisse jouer
@@ -65,37 +66,45 @@ class Jeu:
         return False #si aucun coup possible n'a été trouvé
             
      def jouer_tour(self):
-      peut_jouer = False #si le joueur peut jouer on changera en True
-         
-      # Vérification des coups possibles
-      for c in range(self.colonnes)
-        for l in range(self.lignes)
-            #Supprime les anciens coups possibles
-            if self.plateau[l][c] == "possible" : self.plateau[c][l] = None
+         peut_jouer = False #si le joueur peut jouer on changera en True
 
-            #Vérifie le tour, les coups possibles, met les nouveaux coups possibles dans plateau
-            if self.coup_valide(l,c) :
-                self.plateau[l][c] = "possible"
-                peut_jouer = True
-                
-        #Vérifie si le joueur peut jouer, sinon X_peutjouer = False
-        if peut_jouer is not True : 
+         # Vérification des coups possibles
+          for c in range(self.colonnes)
+             for l in range(self.lignes)
+                #Supprime les anciens coups possibles
+                if self.plateau[l][c] == "possible" : self.plateau[c][l] = None
+                #Vérifie le tour, les coups possibles, met les nouveaux coups possibles dans plateau
+                if self.coup_valide(l,c) :
+                    self.plateau[l][c] = "possible"
+                    peut_jouer = True
+
+         interface.set_plateau(self.plateau, self.tour)
+
+         #Vérifie si le joueur peut jouer, sinon X_peutjouer = False
+         if peut_jouer is not True : 
             if self.tour == "blancs" : self.b_peutjouer = False
             else self.n_peutjouer = False
             #si peut pas jouer on affiche qu'il ne peut pas jouer avant changement de tour ?
-        else : #Si oui récupérer coup joueur
+         else : #Si oui récupérer coup joueur
             if self.tour == "blancs" : self.b_peutjouer = True
             else self.n_peutjouer = True
-              new_l, new_c = interface.recuperer_coup() #METTRE NOM METHODE FRONT
-              self.plateau[new_l][new_c] = self.tour
+            new_l, new_c = interface.get_coup() #METTRE NOM METHODE FRONT Recuperer coup
+            self.plateau[new_l][new_c] = self.tour #ajouter coup
+            #QUI s'occupe de refuser le coup si la case choisie n'est pas un coup possible ?
      
         # fin du tour
         if self.b_peutjouer == True or self.n_peutjouer == True
             if self.tour = "blancs" : self.tour = "noirs"
             else self.tour = "blancs"
             self.jouer_tour()
-
+        
         #Si aucun joueur ne peut jouer (= partie terminée), on sort de la fonction
+
+        
+         
+      
+
+        
 
     def fin_partie(self):
 
