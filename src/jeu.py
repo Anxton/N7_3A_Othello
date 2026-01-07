@@ -24,15 +24,16 @@ class Jeu:
         self.plateau[mid_l-1][mid_c-1] = "blancs"
         self.plateau[mid_l][mid_c] = "blancs"
         self.plateau[mid_l][mid_c-1] = "noirs"
-        self.plateau[mid_l)-1][mid_c] = "noirs"
+        self.plateau[mid_l-1][mid_c] = "noirs"
       
         self.tour = "blancs"
-        interface = OthelloInterface() #front
-        interface.initialiser_jeu(self.lignes,self.colonnes, self.plateau)
+        self.interface = OthelloInterface() #front
+        self.interface.initialiser_jeu(self.lignes,self.colonnes, self.plateau)
         #interface.set_plateau(self.plateau, self.tour) #METTRE NOM METHODE FRONT
         self.b_peutjouer = True #Indique si les blancs peuvent jouer
         self.n_peutjouer = True #Indique si les noires peuvent jouer
-        self.jouer_tour() #itératif jusqu'à ce qu'aucun joueur ne puisse jouer
+        while self.b_peutjouer or self.n_peutjouer :
+            self.jouer_tour() #itératif jusqu'à ce qu'aucun joueur ne puisse jouer
         self.fin_partie()
 
     def coup_valide(self, ligne, colonne):
@@ -55,22 +56,22 @@ class Jeu:
             # On vérifie que l et c sortent pas des possibles
             while 0 <= l < self.lignes and 0 <= c < self.colonnes:
                 if self.plateau[l][c] == opposant : trouve_opposant = True
-                elif self.plateau[l][c] == self.turn:
+                elif self.plateau[l][c] == self.tour:
                     if trouve_opposant: return True
                     else : break
                 else : break #si on trouve Null (ou un ancien coup possible non enlevé encore) on sort
 
-                l += dl
-                c += dc #-> on continue dans la direction tant qu'on a trouve un opposant
+                l += dir_l
+                c += dir_c #-> on continue dans la direction tant qu'on a trouve un opposant
 
         return False #si aucun coup possible n'a été trouvé
             
-     def jouer_tour(self):
-         peut_jouer = False #si le joueur peut jouer on changera en True
+    def jouer_tour(self):
+        peut_jouer = False #si le joueur peut jouer on changera en True
 
-         # Vérification des coups possibles
-          for c in range(self.colonnes)
-             for l in range(self.lignes)
+        # Vérification des coups possibles
+        for c in range(self.colonnes):
+            for l in range(self.lignes):
                 #Supprime les anciens coups possibles
                 if self.plateau[l][c] == "possible" : self.plateau[c][l] = None
                 #Vérifie le tour, les coups possibles, met les nouveaux coups possibles dans plateau
@@ -78,14 +79,14 @@ class Jeu:
                     self.plateau[l][c] = "possible"
                     peut_jouer = True
 
-         interface.set_plateau(self.plateau, self.tour)
+        self.interface.set_plateau(self.plateau, self.tour)
 
-         #Vérifie si le joueur peut jouer, sinon X_peutjouer = False
-         if peut_jouer is not True : 
+        #Vérifie si le joueur peut jouer, sinon X_peutjouer = False
+        if peut_jouer is not True : 
             if self.tour == "blancs" : self.b_peutjouer = False
             else self.n_peutjouer = False
             #si peut pas jouer on affiche qu'il ne peut pas jouer avant changement de tour ?
-         else : #Si oui récupérer coup joueur
+        else : #Si oui récupérer coup joueur
             if self.tour == "blancs" : self.b_peutjouer = True
             else self.n_peutjouer = True
             new_l, new_c = interface.get_coup() #METTRE NOM METHODE FRONT Recuperer coup
@@ -94,22 +95,19 @@ class Jeu:
      
         # fin du tour
         if self.b_peutjouer == True or self.n_peutjouer == True
-            if self.tour = "blancs" : self.tour = "noirs"
+            if self.tour == "blancs" : self.tour = "noirs"
             else self.tour = "blancs"
-            self.jouer_tour()
-        
-        #Si aucun joueur ne peut jouer (= partie terminée), on sort de la fonction
 
     def fin_partie(self):
         nb_blancs = 0
         nb_noirs = 0
 
-        for c in range(self.colonnes)
-             for l in range(self.lignes)
+        for c in range(self.colonnes):
+             for l in range(self.lignes):
                 if self.plateau[l][c] == "blancs" : nb_blancs += 1
-                elif self.plateau[l][c] == "noirs" : nb_blancs += 1
+                elif self.plateau[l][c] == "noirs" : nb_noirs += 1
 
-        interface.set_resultat(nb_blancs, nb_noirs)
+        self.interface.set_resultat(nb_blancs, nb_noirs)
 
 
 
