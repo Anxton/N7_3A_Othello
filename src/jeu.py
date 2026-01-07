@@ -166,5 +166,9 @@ class Jeu:
                 if self.plateau[l][c] == "blancs" : nb_blancs += 1
                 elif self.plateau[l][c] == "noirs" : nb_noirs += 1
 
-        self.interface.set_resultat(nb_blancs, nb_noirs)
+        if nb_blancs == nb_noirs : self.interface.afficher_message("Partie terminée \n Egalité \n " + nb_blancs + " Blancs        Noirs " + nb_noirs)
+        elif nb_blancs > nb_noirs : self.interface.afficher_message("Partie terminée \n Les Blancs gagnent ! \n " + nb_blancs + " Blancs        Noirs " + nb_noirs)
+        else self.interface.afficher_message("Partie terminée \n Les Noirs gagnent ! \n " + nb_blancs + " Blancs        Noirs " + nb_noirs)
+        
+        #self.interface.set_resultat(nb_blancs, nb_noirs)
 
