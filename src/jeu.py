@@ -70,13 +70,13 @@ class Jeu:
         peut_jouer = False #si le joueur peut jouer on changera en True
 
         #Supprime les anciens coups possibles
-        for l in range(self.colonnes):
-            for c in range(self.lignes):
+        for l in range(self.lignes):
+            for c in range(self.colonnes):
                 if self.plateau[l][c] == "possible" : self.plateau[l][c] = None
 
         # Vérification des coups possibles
-        for l in range(self.colonnes):
-            for c in range(self.lignes):
+        for l in range(self.lignes):
+            for c in range(self.colonnes):
                 #Vérifie le tour, les coups possibles, met les nouveaux coups possibles dans plateau
                 if self.coup_valide(l,c) :
                     self.plateau[l][c] = "possible"
@@ -92,21 +92,54 @@ class Jeu:
         else : #Si oui récupérer coup joueur
             if self.tour == "blancs" : self.b_peutjouer = True
             else self.n_peutjouer = True
-            new_l, new_c = self.interface.get_coup() #METTRE NOM METHODE FRONT Recuperer coup
-            self.plateau[new_l][new_c] = self.tour #ajouter coup
-            #QUI s'occupe de refuser le coup si la case choisie n'est pas un coup possible ?
-            self.interface.set_plateau(self.plateau, self.tour) #update avec le nouveau coup
+            
+            coup_valide = False
+            while not coup_valide:
+                new_l, new_c = self.interface.get_coup() #METTRE NOM METHODE FRONT Recuperer coup
+                if self.plateau[new_l][new_c] == "possible": coup_valide = True
+            self.retourner_pions(new_l,new_c)
+            
      
         # fin du tour
         if self.tour == "blancs" : self.tour = "noirs"
         else self.tour = "blancs"
 
+    def retourner_pions(self, ligne, colonne):
+        self.plateau[ligne][colonne] = self.tour #ajouter coup
+
+        opposant = 'blancs' if self.tour == 'noirs' else 'noirs'
+        
+        directions = [
+            (-1, -1), (-1, 0), (-1, 1),
+            ( 0, -1),          ( 0, 1),
+            ( 1, -1), ( 1, 0), ( 1, 1)
+        ]
+
+        for dir_l, dir_c in directions:
+            l = ligne + dir_l
+            c = colonne + dir_c
+            pions = [] #pions adverses par lesquels on passe 
+
+            # On vérifie que l et c sortent pas des possibles
+            while 0 <= l < self.lignes and 0 <= c < self.colonnes:
+                if self.plateau[l][c] == opposant: pions.append((l, c))
+                elif self.plateau[l][c] == self.tour: #quand on tombe sur notre couleur
+                    for pl, pc in pions: #on change les pions adverses croisés avant
+                        self.plateau[pl][pc] = self.tour
+                    break
+                else: break
+
+                l += dir_l
+                c += dir_c #-> on continue dans la direction tant qu'on a trouve un opposant
+
+        self.interface.set_plateau(self.plateau, self.tour) #update avec le nouveau coup
+    
     def fin_partie(self):
         nb_blancs = 0
         nb_noirs = 0
 
-        for l in range(self.colonnes):
-            for c in range(self.lignes):
+        for l in range(self.lignes):
+            for c in range(self.colonnes):
                 if self.plateau[l][c] == "blancs" : nb_blancs += 1
                 elif self.plateau[l][c] == "noirs" : nb_noirs += 1
 
