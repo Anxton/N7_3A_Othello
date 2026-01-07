@@ -8,7 +8,7 @@ class Jeu:
     """
     def afficher_message(self, texte: str, type_msg: str = "info"):
         #type_msg peut être : "info", "erreur", "alerte"
-        print(f"[{type_msg.upper()}] {texte}")
+        self.interface.afficher_message(texte, type_msg) #faire cette méthode dans front
 
     """
     --- Initialisation du jeu ---
@@ -113,7 +113,7 @@ class Jeu:
             while not coup_valide:
                 new_l, new_c = self.interface.get_coup() #METTRE NOM METHODE FRONT Recuperer coup
                 if self.plateau[new_l][new_c] == "possible": coup_valide = True
-                else : self.interface.afficher_message("Case invalide !", "erreur")
+                else : self.afficher_message("Case invalide !", "erreur")
             self.retourner_pions(new_l,new_c)
             
      
@@ -166,9 +166,9 @@ class Jeu:
                 if self.plateau[l][c] == "blancs" : nb_blancs += 1
                 elif self.plateau[l][c] == "noirs" : nb_noirs += 1
 
-        if nb_blancs == nb_noirs : self.interface.afficher_message("Partie terminée \n Egalité \n " + nb_blancs + " Blancs        Noirs " + nb_noirs)
-        elif nb_blancs > nb_noirs : self.interface.afficher_message("Partie terminée \n Les Blancs gagnent ! \n " + nb_blancs + " Blancs        Noirs " + nb_noirs)
-        else self.interface.afficher_message("Partie terminée \n Les Noirs gagnent ! \n " + nb_blancs + " Blancs        Noirs " + nb_noirs)
+        if nb_blancs == nb_noirs : self.afficher_message(f"Partie terminée\nEgalité\n{nb_blancs} Blancs        Noirs {nb_noirs}")
+        elif nb_blancs > nb_noirs : self.afficher_message(f"Partie terminée\nLes Blancs gagnent !\n{nb_blancs} Blancs        Noirs {nb_noirs}")
+        else : self.afficher_message(f"Partie terminée\nLes Noirs gagnent !\n{nb_blancs} Blancs        Noirs {nb_noirs}")
         
         #self.interface.set_resultat(nb_blancs, nb_noirs)
 
