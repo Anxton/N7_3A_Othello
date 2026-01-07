@@ -78,21 +78,26 @@ class Jeu:
                 self.plateau[l][c] = "possible"
                 peut_jouer = True
                 
-            #Vérifie si le joueur peur jouer, sinon X_peutjouer = False
-            if peut_jouer is not True : 
-                if self.tour == "blancs" : self.b_peutjouer = False
-                else self.n_peutjouer = False
-                #si peut pas jouer on affiche qu'il ne peut pas jouer avant changement de tour ?
-            else : #Si oui récupérer coup joueur
-                if self.tour == "blancs" : self.b_peutjouer = True
-                else self.n_peutjouer = True
-                new_l, new_c = interface.recuperer_coup() #METTRE NOM METHODE FRONT
-                self.plateau[new_l][new_c] = self.tour
+        #Vérifie si le joueur peut jouer, sinon X_peutjouer = False
+        if peut_jouer is not True : 
+            if self.tour == "blancs" : self.b_peutjouer = False
+            else self.n_peutjouer = False
+            #si peut pas jouer on affiche qu'il ne peut pas jouer avant changement de tour ?
+        else : #Si oui récupérer coup joueur
+            if self.tour == "blancs" : self.b_peutjouer = True
+            else self.n_peutjouer = True
+              new_l, new_c = interface.recuperer_coup() #METTRE NOM METHODE FRONT
+              self.plateau[new_l][new_c] = self.tour
      
-            # fin du tour
-            if 
+        # fin du tour
+        if self.b_peutjouer == True or self.n_peutjouer == True
+            if self.tour = "blancs" : self.tour = "noirs"
+            else self.tour = "blancs"
+            self.jouer_tour()
 
-            #Si joueur peut pas jouer fin du tour, voir comment voir si l'autre peut jouer
+        #Si aucun joueur ne peut jouer (= partie terminée), on sort de la fonction
+
+    def fin_partie(self):
 
 
 
