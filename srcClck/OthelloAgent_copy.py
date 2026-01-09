@@ -4,8 +4,7 @@ import threading
 import traceback
 import json
 import ingescape as igs
-import jeu  #AJOUT_ALEX
-from typing import Optional #AJOUT_ALEX
+import src.jeu as jeu_py #AJOUT_ALEX
 
 #Lancement LINUX : python3 OthelloAgent.py --device wlp2s0 --port 5670 pour debug : (--verbose)
 #Lancement WINDOWS : py OthelloAgent.py --device "Loopback Pseudo-Interface 1"  --port 5670 --verbose
@@ -23,11 +22,10 @@ class OthelloAgent:
         self.start_y = 150.0
         self.cell_size = 60.0
         self.board_size = 8
-        #self.board_size = 6
         
         self.board_state = [[0]*8 for _ in range(8)]
 
-        self.jeu1 = jeu.Jeu(self.board_size,self.board_size) #AJOUT_ALEX
+        self.jeu1 = jeu_py.Jeu() #AJOUT_ALEX
 
     def start(self):
         
@@ -88,38 +86,20 @@ class OthelloAgent:
         """Redraws all pieces based on self.board_state"""
         print("Redrawing pieces from state...")
         
-        #AJOUT_ALEX_TOUT_LE_BLOC
-        # On doit supprime tous les points rouges précédents
-        
-        
-        plateau = self.jeu1.get_plateau() #AJOUT_ALEX
-        
-        #Pieces
         for row in range(self.board_size):
             for col in range(self.board_size):
-                val = plateau[row][col] #AJOUT_ALEX
-                if val == "noirs": #AJOUT_ALEX
+                val = self.board_state[row][col]
+                if val == 1:
                     self.add_piece(row, col, "black")
-                elif val == "blancs": #AJOUT_ALEX
+                elif val == 2:
                     self.add_piece(row, col, "white")
-
-        #Coups possibles #AJOUT_ALEX_TOUT_LE_BLOC
-        #Faudrais que add_piece permette + de libertés sinon tant pis comme ça ça marche
-        coups_possibles = self.jeu1.get_coups_possibles()
-        for row, col in coups_possibles:
-            padding = self.cell_size / 2 - 5  # petit cercle au centre de la case
-            size = 10.0  # rayon du cercle rouge
-            x = self.start_x + (col * self.cell_size) + padding
-            y = self.start_y + (row * self.cell_size) + padding
-            igs.service_call("Whiteboard", "addShape", ("ellipse", x, y, size, size, "red", "black", 1.0),"COUP_POSSIBLE")
-
 
     def add_piece(self, row, col, color):
         padding = 5.0
         size = self.cell_size - (padding * 2)
         x = self.start_x + (col * self.cell_size) + padding
         y = self.start_y + (row * self.cell_size) + padding
-       
+        
         igs.service_call("Whiteboard", "addShape", 
             ("ellipse", x, y, size, size, color, "black", 1.0), 
             "PIECE_TOKEN") 
@@ -150,23 +130,13 @@ class OthelloAgent:
                 y = click["y"]
                 
                 col = int((x - self.start_x) // self.cell_size)
-                row = int((y - self.start_y) // self.cell_size) -1 #DEGUEUUUUU -1
+                row = int((y - self.start_y) // self.cell_size)
                 
                 if 0 <= row < self.board_size and 0 <= col < self.board_size:
                     print(f"Click at board position: Row {row}, Col {col}")
                     
-                    #AJOUT_ALEX CHANGEMENTS DANS CE BLOC
-                    coups_possibles = self.jeu1.get_coups_possibles() #récupération des coups autorisés
-                    print(f"coups possibles : {coups_possibles}")
-                    print(f"row : {row}, col : {col}")
-
-                    if (row,col) in coups_possibles:
-                        # Jouer le coup
-                        self.jeu1.jouer_tour(row, col)
-                        etat = self.jeu1.fin_tour()
-                        print(f"Etat après fin de tour : {etat}")
-
-                        self.redraw_pieces_from_state() #on update les coups
+                    if self.board_state[row][col] == 0:
+                        print("Placing and calculating board state...")
                     else:
                         print("Cell already occupied.")
                 else:
