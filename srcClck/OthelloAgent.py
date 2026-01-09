@@ -5,11 +5,14 @@ import traceback
 import json
 import ingescape as igs
 
-#Commande pour lancé le script : python3 OthelloAgent.py --device wlp2s0 --port 5670 pour debug : (--verbose)
+#Lancement LINUX : python3 OthelloAgent.py --device wlp2s0 --port 5670 pour debug : (--verbose)
+#Lancement WINDOWS : py OthelloAgent.py --device "Loopback Pseudo-Interface 1"  --port 5670 --verbose
+
 class OthelloAgent:
     def __init__(self):
         self.agent_name = "OthelloAgentG"
-        self.device = "wlp2s0" 
+        #self.device = "wlp2s0" #ordi Gauthier : Linux
+        self.device = "Loopback Pseudo-Interface 1" #ordi Alex : windows 
         self.port = 5670
         
         self.piece_ids = []  

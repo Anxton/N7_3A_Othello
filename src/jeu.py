@@ -1,7 +1,6 @@
 '''
-INFOS POUR RELIER : 
-Début du jeu, renvoie : plateau[l][c] avec l et c qui peuvent être modifiés à volonté
-
+INFOS POUR FRONT : 
+    X
 '''
 
 class Jeu:
@@ -106,11 +105,11 @@ class Jeu:
             #if not self.b_peutjouer and  self.n_peutjouer :
         #    self.jouer_tour() #itératif jusqu'à ce qu'aucun joueur ne puisse jouer
         
-            coup_valide = False
-            while not coup_valide:
-                #new_l, new_c = self.interface.get_coup() #METTRE NOM METHODE FRONT Recuperer coup
-                if self.plateau[new_l][new_c] == "possible": coup_valide = True
-                else : return "Case invalide !"
+        coup_valide = False
+        while not coup_valide:
+            #new_l, new_c = self.interface.get_coup() #METTRE NOM METHODE FRONT Recuperer coup
+            if self.plateau[new_l][new_c] == "possible": coup_valide = True
+            else : return "Case invalide !"
      
         # fin du tour -> Changement joueur pour le prochain tour
         if self.tour == "blancs" :
@@ -204,7 +203,7 @@ class Jeu:
     def get_tour(self):
         return self.tour
 
-    get 
+    #get 
 
     
         
