@@ -3,9 +3,9 @@ Résumé méthodes :
     _init_(lignes : int = 8, colonnes : int = 8)
     init_plateau()
 
-    jouer_tour(new_l: int, new_c: int)
+    jouer_tour(new_l: int, new_c: int) -> True si coup valide | False sinon
     _changer_tour() #NE PAS UTILISER, METHODE INTERNE
-    fin_tour()
+    fin_tour() -> "terminee" | "passe" | "joue"
     _retourner_pions(ligne : int, colonne : int) #NE PAS UTILISER, METHODE INTERNE
 
     get_plateau()
@@ -100,6 +100,10 @@ class Jeu:
     def fin_tour(self) -> str:
         '''
         --- Fin du tour : On change de joueur. Si l'autre joueur ne peut pas jouer, le tour revient au joueur initial ---
+            Return:
+                "terminee": partie terminee
+                "passe": tour passé, le même joueur rejoue
+                "joue": changement effectué normalement
         '''
         self._changer_tour()
         if not self.get_coups_possibles():
