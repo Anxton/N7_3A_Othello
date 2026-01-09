@@ -30,7 +30,7 @@ class OthelloAgent:
         self.jeu1 = jeu.Jeu(self.board_size,self.board_size) #AJOUT_ALEX
 
     def start(self):
-        
+        igs.service_call("Whiteboard", "clear", (), None)
         igs.agent_set_name(self.agent_name)
         igs.definition_set_version("1.0")
         
@@ -65,9 +65,11 @@ class OthelloAgent:
         """Draws the static background grid and UI text (does not clear pieces if not asked)"""
         print("Drawing Static Grid...")
         
-        igs.service_call("Whiteboard", "clear", (), None)
+        #igs.service_call("Whiteboard", "clear", (), None)
+        igs.service_call("Whiteboard", "removeElementsByToken", ("COUP_POSSIBLE",), None)
+
         self.clean_ids()
-        time.sleep(0.5)
+        #time.sleep(0.5)
 
         igs.service_call("Whiteboard", "addText", ("Player 1 (Black)", self.start_x, self.start_y - 50.0, "black"), None)
         board_width = self.cell_size * self.board_size
@@ -81,13 +83,13 @@ class OthelloAgent:
                     ("rectangle", x, y, self.cell_size, self.cell_size, "green", "black", 2.0), 
                     None)
         
-        
         self.redraw_pieces_from_state()
 
     def redraw_pieces_from_state(self):
         """Redraws all pieces based on self.board_state"""
         print("Redrawing pieces from state...")
         
+        #igs.service_call("Whiteboard", "removeElementsByToken", ("PIECE_TOKEN",), None)
         #AJOUT_ALEX_TOUT_LE_BLOC
         # On doit supprime tous les points rouges précédents
         
@@ -166,7 +168,13 @@ class OthelloAgent:
                         etat = self.jeu1.fin_tour()
                         print(f"Etat après fin de tour : {etat}")
 
-                        self.redraw_pieces_from_state() #on update les coups
+                        self.draw_grid_static()
+                        if self.jeu1.is_partie_terminee():
+                            #Fin de partie
+                            print(f"Partie terminée")
+
+                            #METHODE RESTART APPELER ICI
+                            #self.jeu1.init_plateau()
                     else:
                         print("Cell already occupied.")
                 else:

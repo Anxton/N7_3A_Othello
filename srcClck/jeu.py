@@ -60,13 +60,20 @@ class Jeu:
         self.init_plateau()
 
     
-    def init_plateau(self):
+    def init_plateau(self, new_l: Optional[int] = 8, new_c: Optional[int] = 8):
         """
         --- Réinitialisation de partie ---
             Note : on peut relancer une partie à partir d'ici avec le même nb de [l][c] sans recréer d'objet jeu
             Args: Aucun
             Returns: Pas de retour
         """
+        if new_l != None and new_c != None:
+            if new_l < 3 or new_c < 3:
+                raise ValueError("Le plateau doit au moins faire 3x3")
+            else:
+                self.lignes = new_l
+                self.colonnes = new_c
+            
         self.tour = "blancs"
         
         #Création plateau
