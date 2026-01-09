@@ -80,7 +80,7 @@ class Jeu:
         self.plateau[mid_l][mid_c-1] = "noirs"
         self.plateau[mid_l-1][mid_c] = "noirs"        
 
-    def jouer_tour(self, new_l: int, new_c: int):
+    def jouer_tour(self, new_l: int, new_c: int) -> bool:
         """
         --- Déroulement complet d'un tour de jeu ---
             Args:
@@ -166,7 +166,7 @@ class Jeu:
 
     def get_coups_possibles(self, couleur: str | None = None):
         """
-        --- Retourne un tableau des positions des coups possibles (pour le joueur dont c'est le tour) ---
+        --- Retourne [[l,c]] des positions des coups possibles (pour le joueur dont c'est le tour) ---
             Note : Un retour non null indique que le joueur en cours peut jouer
         """
         if couleur is None :
