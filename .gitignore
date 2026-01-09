@@ -1,6 +1,2 @@
-<<<<<<< HEAD
 venv
-=======
-src/venv
-/venv
->>>>>>> 0f1f457e5904e64744236269b4bfb009e642da38
+__pycache__
