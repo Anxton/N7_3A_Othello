@@ -101,9 +101,7 @@ class Jeu:
         if not (0 <= new_l < self.lignes and 0 <= new_c < self.colonnes) or not self.is_coup_valide(new_l,new_c):
             return False
         
-        self._retourner_pions(new_l,new_c)
-
-        return True
+        return self._retourner_pions(new_l,new_c)
     
     def fin_tour(self) -> str:
         '''
@@ -144,22 +142,26 @@ class Jeu:
             ( 1, -1), ( 1, 0), ( 1, 1)
         ]
 
+        pions_a_retourner = []
         for dir_l, dir_c in directions:
+            pions = [] #pions adverses par lesquels on passe 
             l = ligne + dir_l
             c = colonne + dir_c
-            pions = [] #pions adverses par lesquels on passe 
 
             # On vérifie que l et c sortent pas des possibles
             while 0 <= l < self.lignes and 0 <= c < self.colonnes:
                 if self.plateau[l][c] == opposant: pions.append((l, c))
                 elif self.plateau[l][c] == self.tour: #quand on tombe sur notre couleur
+                    pions_a_retourner += pions
                     for pl, pc in pions: #on change les pions adverses croisés avant
                         self.plateau[pl][pc] = self.tour
                     break
                 else: break
 
                 l += dir_l
-                c += dir_c #-> on continue dans la direction tant qu'on a trouve un opposant         
+                c += dir_c #-> on continue dans la direction tant qu'on a trouve un opposant
+
+        return pions_a_retourner
 
 # ------------------ #
 # GETTERs
