@@ -38,8 +38,13 @@ Utilisation de la classe, exemple :
     # + à tout moment on peut récupérer le plateau, quel joueur joue, le score
 '''
 from typing import Optional
+from enum import Enum
 
-class Jeu:
+class Turn(Enum):
+    BLANCS = "Blancs"
+    NOIRS = "Noirs"
+
+class Othello:
     """
     Classe qui gère le déroulement d'un jeu du début à la fin
     """
@@ -74,19 +79,18 @@ class Jeu:
                 self.lignes = new_l
                 self.colonnes = new_c
             
-        self.tour = "blancs"
+        self.tour: Turn = Turn.BLANCS
         
         #Création plateau
-        self.plateau = [[None for _ in range(self.colonnes)] 
-                        for _ in range(self.lignes)]
+        self.plateau: list[list[Optional[Turn]]] = [[None for _ in range(self.colonnes)] for _ in range(self.lignes)]
 
         mid_l = self.lignes // 2
         mid_c = self.colonnes // 2
         
-        self.plateau[mid_l-1][mid_c-1] = "blancs"
-        self.plateau[mid_l][mid_c] = "blancs"
-        self.plateau[mid_l][mid_c-1] = "noirs"
-        self.plateau[mid_l-1][mid_c] = "noirs"        
+        self.plateau[mid_l-1][mid_c-1] = Turn.BLANCS
+        self.plateau[mid_l][mid_c] = Turn.BLANCS
+        self.plateau[mid_l][mid_c-1] = Turn.NOIRS
+        self.plateau[mid_l-1][mid_c] = Turn.NOIRS        
 
     def jouer_tour(self, new_l: int, new_c: int) -> bool:
         """
@@ -119,14 +123,20 @@ class Jeu:
             return "passe" #Le même joueur rejoue car l'autre ne peut pas jouer
         return 'joue' #Changement de joueur classique
     
+    def reinitialiser_partie(self, lignes : int = 8, colonnes : int = 8):
+        '''
+        Réinitialisation de la partie
+        '''
+        self.__init__(lignes, colonnes)
+    
     def _changer_tour(self):
         '''
         --- Changement joueur pour le prochain tour ---
         '''
-        if self.tour == "blancs" :
-            self.tour = "noirs"
+        if self.tour == Turn.BLANCS:
+            self.tour = Turn.NOIRS
         else :
-            self.tour = "blancs"
+            self.tour = Turn.BLANCS
 
     """
     --- Retournement des pions adverses une fois que le joueur a joué ---
@@ -134,7 +144,7 @@ class Jeu:
     def _retourner_pions(self, ligne : int, colonne : int):
         self.plateau[ligne][colonne] = self.tour #ajouter coup
 
-        opposant = 'blancs' if self.tour == 'noirs' else 'noirs'
+        opposant = Turn.BLANCS if self.tour == Turn.NOIRS else Turn.NOIRS
         
         directions = [
             (-1, -1), (-1, 0), (-1, 1),
@@ -171,11 +181,16 @@ class Jeu:
         """
             Returns:
                 Tableau des pions sur le plateau
-                Tableau [l][c] de : "blancs" | "noirs" | None
+                Tableau [l][c] de : Turn.BLANCS | Turn.NOIRS | None
         """
         return self.plateau
 
     def get_tour(self):
+        """
+            Retourne la couleur du joueur dont c'est le tour
+            Returns:
+                Turn.BLANCS ou Turn.NOIRS
+        """
         return self.tour
 
     def get_coups_possibles(self, couleur: Optional[str] = None):
@@ -211,7 +226,7 @@ class Jeu:
         if couleur is None :
             couleur = self.tour #Par défaut on regarde les coups possibles du tour en cours
         
-        opposant = 'blancs' if couleur == 'noirs' else 'noirs'
+        opposant = Turn.BLANCS if couleur == Turn.NOIRS else Turn.NOIRS
         
         directions = [
             (-1, -1), (-1, 0), (-1, 1),
@@ -240,19 +255,19 @@ class Jeu:
 
     def is_partie_terminee(self):
         """
-        --- Retourne True si aucun des joueurs ne peut jouer = partie terminée ---
+        Retourne True si aucun des joueurs ne peut jouer = partie terminée
         """
         return ( 
-            not self.get_coups_possibles("blancs") 
+            not self.get_coups_possibles(Turn.BLANCS) 
             and 
-            not self.get_coups_possibles("noirs") 
+            not self.get_coups_possibles(Turn.NOIRS) 
         )
 
     
-    def get_score(self):
+    def get_scores(self):
         """
-        --- Retourne les scores dans l'ordre : blancs, noirs ---
+        Retourne les scores dans l'ordre : blancs, noirs
         """
-        blancs = sum(row.count("blancs") for row in self.plateau)
-        noirs  = sum(row.count("noirs") for row in self.plateau)
+        blancs = sum(row.count(Turn.BLANCS) for row in self.plateau)
+        noirs  = sum(row.count(Turn.NOIRS) for row in self.plateau)
         return blancs, noirs
