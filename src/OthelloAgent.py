@@ -44,18 +44,27 @@ class OthelloAgent:
         
         igs.service_init("resetGame", self.reset_game, None)
 
-        # getters for game state
-        igs.service_init("getPlateau", self.game.get_plateau, None)
-        igs.service_init("getPossibleMoves", self.game.get_coups_possibles, None)
-        igs.service_init("getScores", self.game.get_scores, None)
-        igs.service_init("getTurn", self.game.get_tour, None)
-        igs.service_init("isGameOver", self.game.is_partie_terminee, None)
+        # observable outputs
+        igs.output_create("board", igs.STRING_T, None)
+        igs.output_create("possibleMoves", igs.STRING_T, None)
+        igs.output_create("scores", igs.STRING_T, None)
+        igs.output_create("getTurn", igs.STRING_T, None)
+        igs.output_create("isGameOver", igs.BOOL_T, None)
 
         igs.service_init("elementCreated", self.on_element_created, None)
         igs.service_arg_add("elementCreated", "elementId", igs.INTEGER_T)
 
         igs.start_with_device(self.device, self.port)
         print(f"{self.agent_name} started on {self.device}:{self.port}")
+
+    def update_outputs(self):
+        def serialized_plateau(plateau):
+            return [[cell.value if cell is not None else None for cell in row] for row in plateau]
+        igs.output_set_string("board", json.dumps(serialized_plateau(self.game.get_plateau())))
+        igs.output_set_string("possibleMoves", json.dumps(self.game.get_coups_possibles()))
+        igs.output_set_string("scores", json.dumps(self.game.get_scores()))
+        igs.output_set_string("getTurn", json.dumps(self.game.get_tour().value))
+        igs.output_set_bool("isGameOver", self.game.is_partie_terminee())
 
     def start(self):
         self.init_igs()
@@ -109,6 +118,8 @@ class OthelloAgent:
             # display end game text
             winner = "Blancs" if self.game.get_scores()[0] - self.game.get_scores()[1] > 0 else "Noirs"
             igs.service_call("Whiteboard", "addText", (f"Fin de la partie ! Les {winner} ont gagné.", self.start_x , self.start_y - 100.0, "black"), "END")
+            self.update_outputs()
+
         else:
             # update active player text
             self.removeElements("ACTIVE_PLAYER_TOKEN")
@@ -172,6 +183,7 @@ class OthelloAgent:
         print("Service 'resetGame' called.")
         self.game.reinitialiser_partie(self.board_size, self.board_size)
         self.draw_grid_static()
+        self.update_outputs()
 
     def on_update_click(self, io_type, name, value_type, value, my_data):
         """
@@ -194,18 +206,16 @@ class OthelloAgent:
                     print(f"Click at board position: Row {row}, Col {col}")
                     
                     coups_possibles = self.game.get_coups_possibles()
-                    print(f"coups possibles : {coups_possibles}")
-                    print(f"row : {row}, col : {col}")
 
                     if (row,col) in coups_possibles:
                         # Jouer le coup
                         pions_retournes = self.game.jouer_tour(row, col)
                         etat = self.game.fin_tour()
-                        print(f"Etat après fin de tour : {etat}")
 
                         self.draw_state(etat)
+                        self.update_outputs()
                     else:
-                        print("Cell already occupied.")
+                        print("Not a valid move.")
                 else:
                     print("Click outside board area.")
             else:
