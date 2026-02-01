@@ -45,6 +45,8 @@ Simple verification and validation scripts are provided to test the OthelloAgent
 - Game score is visible constantly thourough the game
 - Once the game is finished, the winner is displayed
 
+[-> Watch a game exemple <-](game_exemple.mp4)
+
 ## Possible improvements
 
 - Adding a reset button
