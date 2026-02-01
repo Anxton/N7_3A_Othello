@@ -21,7 +21,7 @@ A basic [Othello](https://en.wikipedia.org/wiki/Reversi) game implemented in Pyt
 - Endgame display is not operational: we don't see the last move, only the final score. That should be adressed.
 - Add a reset button
 - Allow the player to choose the size of the board (we can already manually change the size of the board in the code and have a functioning game, but we didn't implement a way for the user to change it
-- Add player customization: user could chooser their name
+- Add player customization: user could choose a name
 - Add a scoreboard showing previous games and the number of games won by each player (recorded by player name)
 - Add an option to play against the computer
 
