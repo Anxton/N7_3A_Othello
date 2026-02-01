@@ -9,7 +9,7 @@ A basic [Othello](https://en.wikipedia.org/wiki/Reversi) game implemented in Pyt
 
 ## Features available
 
-- The game is functional. Players can place their paws alternately
+- The game is functional: players can place their paws alternately
 - The turn is indicated: players know whose turn it is to play
 - Possible paws placements are shown for clarity
   - Additionaly, it is impossible to place a pawn on a case that is not a possible move. It ensures that no cheating is possible         and that the turn will not change until a valid move is played
