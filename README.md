@@ -47,7 +47,14 @@ python ./src/OthelloAgent.py
 
 ## Whiteboard
 
-Run the Whiteboard application and press the `Lock elements` button in the top left corner to avoid moving the elements by mistake.
+- Run the Whiteboard application and press the `Lock elements` button in the top left corner to avoid moving the elements by mistake.
+
+- sddd
+![XXX](./img/interface.jpg)
+
+
+
+
 
 # Ingescape Circle
 
