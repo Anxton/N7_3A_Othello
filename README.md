@@ -5,6 +5,8 @@ A basic [Othello](https://en.wikipedia.org/wiki/Reversi) game implemented in Pyt
 
 ![Othello game on Whiteboard](./img/game_preview.png)
 
+[-> Watch a game exemple <-](game_exemple.mp4)
+
 ## Features available
 
 - The game is functional. Players can place their paws alternately
@@ -13,8 +15,6 @@ A basic [Othello](https://en.wikipedia.org/wiki/Reversi) game implemented in Pyt
       - Additionaly, it is impossible to place a pawn on a case that is not a possible move. It ensures that no cheating is possible         and that the turn will not change until a valid move is played
 - Game score is visible constantly thourough the game
 - Once the game is finished, the winner is displayed
-
-[-> Watch a game exemple <-](game_exemple.mp4)
 
 ## Possible improvements
 
