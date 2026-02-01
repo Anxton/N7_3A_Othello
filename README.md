@@ -36,3 +36,17 @@ A `.igssystem` file is provided to easily import the Othello system into [Ingesc
 ## V&V scripts
 
 Simple verification and validation scripts are provided to test the OthelloAgent system on Circle. You can find them under `Library > Scripts`.
+
+## Features available
+
+- The game is functional. Players can place their paws alternately
+- The turn is indicated: players know whose turn it is to play
+- Possible paws placements are shown for clarity
+- Game score is visible constantly thourough the game
+- Once the game is finished, the winner is displayed
+
+## Possible improvements
+
+- Adding a reset button
+- Allow the player to choose the size of the board (we can already manually change the size of the board in the code and have a functioning game, but we didn't implement a way for the user to change it
+
