@@ -34,7 +34,8 @@ A basic [Othello](https://en.wikipedia.org/wiki/Reversi) game implemented in Pyt
 python -m venv venv
 
 # Activate it
-source venv/bin/activate
+source venv/bin/activate #linux
+venv\Scripts\activate #windows
 
 # Install requirements
 pip install -r ./requirements.txt
