@@ -35,7 +35,8 @@ python -m venv venv
 
 # Activate it
 source venv/bin/activate #linux
-venv\Scripts\activate #windows
+venv\Scripts\activate #windows (cmd)
+venv\Scripts\Activate.ps1 #windows (PowerShell)
 
 # Install requirements
 pip install -r ./requirements.txt
