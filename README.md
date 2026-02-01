@@ -48,7 +48,7 @@ python ./src/OthelloAgent.py
 ## Whiteboard
 
 - Run the Whiteboard application and press the `Lock elements` button in the top left corner to avoid moving the elements by mistake.
-- sddd
+- The code is currently configured to run on Windows. If you are not on Windows or need to change the interface used, change it in 
   
 ![XXX](./img/interface.jpg)
 
