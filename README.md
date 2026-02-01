@@ -40,7 +40,8 @@ Simple verification and validation scripts are provided to test the OthelloAgent
 ## Features available
 
 - The game is functional. Players can place their paws alternately
-- The turn is indicated. Players know whose turn it is to play
+- The turn is indicated: players know whose turn it is to play
+- Possible paws placements are shown for clarity
 - Game score is visible constantly thourough the game
 - Once the game is finished, the winner is displayed
 
