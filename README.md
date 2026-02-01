@@ -13,6 +13,7 @@ A basic [Othello](https://en.wikipedia.org/wiki/Reversi) game implemented in Pyt
 - The turn is indicated: players know whose turn it is to play
 - Possible paws placements are shown for clarity
       - Additionaly, it is impossible to place a pawn on a case that is not a possible move. It ensures that no cheating is possible         and that the turn will not change until a valid move is played
+  -ggg
 - Game score is visible constantly thourough the game
 - Once the game is finished, the winner is displayed
 
