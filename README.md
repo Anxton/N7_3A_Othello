@@ -5,6 +5,22 @@ A basic [Othello](https://en.wikipedia.org/wiki/Reversi) game implemented in Pyt
 
 ![Othello game on Whiteboard](./img/game_preview.png)
 
+## Features available
+
+- The game is functional. Players can place their paws alternately
+- The turn is indicated: players know whose turn it is to play
+- Possible paws placements are shown for clarity
+      - Additionaly, it is impossible to place a pawn on a case that is not a possible move. It ensures that no cheating is possible         and that the turn will not change until a valid move is played
+- Game score is visible constantly thourough the game
+- Once the game is finished, the winner is displayed
+
+[-> Watch a game exemple <-](game_exemple.mp4)
+
+## Possible improvements
+
+- Adding a reset button
+- Allow the player to choose the size of the board (we can already manually change the size of the board in the code and have a functioning game, but we didn't implement a way for the user to change it
+
 # Installing and running
 
 ## OthelloAgent
@@ -36,20 +52,4 @@ A `.igssystem` file is provided to easily import the Othello system into [Ingesc
 ## V&V scripts
 
 Simple verification and validation scripts are provided to test the OthelloAgent system on Circle. You can find them under `Library > Scripts`.
-
-## Features available
-
-- The game is functional. Players can place their paws alternately
-- The turn is indicated: players know whose turn it is to play
-- Possible paws placements are shown for clarity
-      - Additionaly, it is impossible to place a pawn on a case that is not a possible move. It ensures that no cheating is possible         and that the turn will not change until a valid move is played
-- Game score is visible constantly thourough the game
-- Once the game is finished, the winner is displayed
-
-[-> Watch a game exemple <-](game_exemple.mp4)
-
-## Possible improvements
-
-- Adding a reset button
-- Allow the player to choose the size of the board (we can already manually change the size of the board in the code and have a functioning game, but we didn't implement a way for the user to change it
 
