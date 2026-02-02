@@ -553,7 +553,7 @@
         ],
         "scripts": [
             {
-                "code": "//\n// vv\n//\n// created on 2026-01-31\n//\n\n// The script language documentation is available at\n// https://ingescape.com/verification-validation-using-ingescape/\n\n\"Reset game Test\" {\n    OthelloAgent.resetGame()\n    \n    assert OthelloAgent.board == \"[[null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null], [null, null, null, \"Blancs\", \"Noirs\", null, null, null], [null, null, null, \"Noirs\", \"Blancs\", null, null, null], [null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null]]\"\n    assert OthelloAgent.possibleMoves == \"[[2, 4], [3, 5], [4, 2], [5, 3]]\"\n    assert OthelloAgent.scores == \"[2, 2]\"\n    assert OthelloAgent.getTurn == \"Blancs\"\n    assert OthelloAgent.isGameOver == false\n}\n\n",
+                "code": "//\n// vv\n//\n// created on 2026-01-31\n//\n\n// The script language documentation is available at\n// https://ingescape.com/verification-validation-using-ingescape/\n\n\"Reset game Test\" {\n    OthelloAgent.resetGame()\n\n    assert OthelloAgent.board == \"[[null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null], [null, null, null, \\\"Blancs\\\", \\\"Noirs\\\", null, null, null], [null, null, null, \\\"Noirs\\\", \\\"Blancs\\\", null, null, null], [null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null]]\"\n    assert OthelloAgent.possibleMoves == \"[[2, 4], [3, 5], [4, 2], [5, 3]]\"\n    assert OthelloAgent.scores == \"[2, 2]\"\n    assert OthelloAgent.getTurn == \"\\\"Blancs\\\"\"\n    assert OthelloAgent.isGameOver == 0\n}\n\n\n\"Click to play Test\" {\n    OthelloAgent.resetGame()\n    OthelloAgent.click = \"{\\\"x\\\":368,\\\"y\\\":291}\"\n\n    // this test doesn't work for some reason\n    assert OthelloAgent.board == \"[[null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null], [null, null, null, null, \\\"Blancs\\\", null, null, null], [null, null, null, \\\"Blancs\\\", \\\"Blancs\\\", null, null, null], [null, null, null, \\\"Noirs\\\", \\\"Blancs\\\", null, null, null], [null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null], [null, null, null, null, null, null, null, null]]\"\n    assert OthelloAgent.possibleMoves == \"[[2, 3], [2, 5], [4, 5]]\"\n    assert OthelloAgent.scores == \"[4, 1]\"\n    assert OthelloAgent.getTurn == \"\\\"Noirs\\\"\"\n    assert OthelloAgent.isGameOver == 0\n}\n\n",
                 "name": "vv",
                 "package": "",
                 "uuid": "e7e2aedf-c31f-410e-991b-8324a9350bba"
@@ -583,7 +583,7 @@
                     "width": 250,
                     "x": 650.3148228363068,
                     "y": 289.15317247908365,
-                    "z": 0.18000000000000002
+                    "z": 0.4200000000000002
                 },
                 {
                     "agent": {
@@ -603,9 +603,9 @@
                     "simulationTime": 5000,
                     "uuid": "eb381e57-d63c-47ba-9a32-14dec58b79c4",
                     "width": 250,
-                    "x": 1304.327819799228,
-                    "y": 412.34921224589414,
-                    "z": 0.23000000000000007
+                    "x": 1219.040344132764,
+                    "y": 383.9200536904061,
+                    "z": 0.5000000000000002
                 },
                 {
                     "data": {
@@ -620,9 +620,9 @@
                     "tool": "com.ingescape.circle.tool.servicecaller",
                     "uuid": "e1d1607e-24c1-477e-a44c-7c1afc8f812c",
                     "width": 350,
-                    "x": 1022.4109041325617,
-                    "y": 236.69060574589417,
-                    "z": 0.3300000000000001
+                    "x": 1163.7238589079084,
+                    "y": 265.7932364182345,
+                    "z": 0.6200000000000003
                 },
                 {
                     "data": {
@@ -633,15 +633,15 @@
                         "showTimestamps": true,
                         "string_decoder": "PLAIN_TEXT"
                     },
-                    "height": 349.44871692288,
+                    "height": 221.51750342318363,
                     "isExpanded": true,
                     "name": "",
                     "tool": "com.ingescape.circle.tool.observer",
                     "uuid": "8bcf622e-8628-47b1-9d0d-c82c8c2d13db",
-                    "width": 400.45919506432034,
-                    "x": 1599.7286273729621,
-                    "y": 7.815374203614567,
-                    "z": 0.34000000000000014
+                    "width": 437.4171011864542,
+                    "x": 1612.521748722932,
+                    "y": 209.6623999475798,
+                    "z": 0.6100000000000003
                 },
                 {
                     "data": {
@@ -658,9 +658,9 @@
                     "tool": "com.ingescape.circle.tool.observer",
                     "uuid": "6617928f-bf74-4612-bdcc-b2ee713688a8",
                     "width": 250,
-                    "x": 1720.324021115281,
-                    "y": 419.4819244557607,
-                    "z": 0.35000000000000014
+                    "x": 1690.4734046320184,
+                    "y": 439.3823354446023,
+                    "z": 0.5900000000000003
                 },
                 {
                     "data": {
@@ -677,9 +677,9 @@
                     "tool": "com.ingescape.circle.tool.observer",
                     "uuid": "962c60a0-321b-4fc3-8ff0-3df4ef314a02",
                     "width": 250,
-                    "x": 1867.0552748752812,
-                    "y": 592.8182956557607,
-                    "z": 0.2800000000000001
+                    "x": 1687.9515759757064,
+                    "y": 530.2741468336867,
+                    "z": 0.5800000000000003
                 },
                 {
                     "data": {
@@ -696,9 +696,9 @@
                     "tool": "com.ingescape.circle.tool.observer",
                     "uuid": "1d9c42ca-0a5b-4d3b-bea0-9d175f896cb0",
                     "width": 250,
-                    "x": 1792.077216635281,
-                    "y": 684.7268831757607,
-                    "z": 0.2900000000000001
+                    "x": 1689.732245835524,
+                    "y": 615.075444714815,
+                    "z": 0.5700000000000003
                 },
                 {
                     "data": {
@@ -715,9 +715,28 @@
                     "tool": "com.ingescape.circle.tool.observer",
                     "uuid": "d01d5f48-d77a-412a-9328-2075cc051674",
                     "width": 250,
-                    "x": 1654.0595419447213,
-                    "y": 804.9691145536806,
-                    "z": 0.3000000000000001
+                    "x": 1691.017448066856,
+                    "y": 706.8885175372467,
+                    "z": 0.6000000000000003
+                },
+                {
+                    "data": {
+                        "data_decoder": "BINARY",
+                        "mostRecentFirst": true,
+                        "msg_type": "",
+                        "proto_file_path": "",
+                        "showTimestamps": true,
+                        "string_decoder": "PLAIN_TEXT"
+                    },
+                    "height": 75,
+                    "isExpanded": true,
+                    "name": "",
+                    "tool": "com.ingescape.circle.tool.observer",
+                    "uuid": "1c6f46b6-7d65-49d7-a411-05971e83b0df",
+                    "width": 250,
+                    "x": 938.4966008018432,
+                    "y": 562.2164508772789,
+                    "z": 0.49000000000000027
                 }
             ],
             "links": {
@@ -787,6 +806,18 @@
                         "source": "eb381e57-d63c-47ba-9a32-14dec58b79c4",
                         "sourceIO": {
                             "name": "isGameOver",
+                            "type": "OUTPUT"
+                        }
+                    },
+                    {
+                        "destination": "1c6f46b6-7d65-49d7-a411-05971e83b0df",
+                        "destinationIO": {
+                            "name": "wildcard",
+                            "type": "INPUT"
+                        },
+                        "source": "71a41383-a17c-439c-955d-c7ecfb20e29c",
+                        "sourceIO": {
+                            "name": "click",
                             "type": "OUTPUT"
                         }
                     }
